@@ -31,6 +31,14 @@ function replaceCanvasAndStartP5() {
 
 replaceCanvasAndStartP5();
 
+function wrapCode(){
+  document.getElementById('defaultCanvas0').style.float = 'left';
+  var editor = ace.edit("codeBlock");
+  // editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/javascript");
+  document.getElementById('codeBlock').style.fontSize='20px';
+}
+
 function pauseP5() {
   window.originalsetup = window.setup;
   window.originaldraw = window.draw;
@@ -77,9 +85,12 @@ function startP5() {
     var codeBlock = document.createElement("div");
     codeBlock.id = 'codeBlock';
     document.body.appendChild(codeBlock);
+    codeBlock.style.float = 'left';
     codeBlock.style.position = "absolute";
     codeBlock.style.top = "100px";
     codeBlock.style.left = "720px";
+
+    wrapCode();
 
     //add code block and draw the code on canvas
     for(var i = 0; i < myShapes.length; i++){
@@ -87,13 +98,10 @@ function startP5() {
       s.addShape(new Shape(s, myShapes[i].coordinates[0],myShapes[i].coordinates[1],
       myShapes[i].coordinates[2],myShapes[i].coordinates[3],'rgba(125,125,125,1)')); // The default is gray
 
-      //add each code container
-      var codeContainer = document.createElement("div");
-      codeContainer.id = "codeContainer"+i;
-      var codeContent = myShapes[i].type + "(" + myShapes[i].coordinates + ");";
+      var codeContent = myShapes[i].type + "(" + myShapes[i].coordinates + ");<\br>";
       var code = document.createTextNode(codeContent);
-      codeContainer.appendChild(code);
-      codeBlock.appendChild(codeContainer);
+      codeBlock.appendChild(code);
+      codeBlock.appendChild(document.createElement('br'));
     }
   }
   window.draw = window.originaldraw;
@@ -466,12 +474,20 @@ CanvasState.prototype.draw = function() {
     
     // draw all shapes
     l = shapes.length;
+    var codeBlock = document.getElementById('codeBlock');
+      codeBlock.innerHTML = '';
     for (var i = 0; i < l; i++) {
       var shape = shapes[i];
       // console.log(shapes[i]);
       myShapes[i].coordinates = [shapes[i].x, shapes[i].y, shapes[i].w, shapes[i].h];
       // console.log(myShapes[i].coordinates);
-      document.getElementById('codeContainer'+i).innerHTML = myShapes[i].type+"(" + myShapes[i].coordinates + ");"
+      // document.getElementById('codeContainer'+i).innerHTML = myShapes[i].type+"(" + myShapes[i].coordinates + ");"
+
+      var codeContent = myShapes[i].type + "(" + myShapes[i].coordinates + ");";
+      var code = document.createTextNode(codeContent);
+      codeBlock.appendChild(code);
+      codeBlock.appendChild(document.createElement('br'));
+
       // We can skip the drawing of elements that have moved off the screen:
       if (shape.x <= this.width && shape.y <= this.height &&
           shape.x + shape.w >= 0 && shape.y + shape.h >= 0){

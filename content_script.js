@@ -9,6 +9,7 @@ var reloadOnce = false;
 var toggle = function(){
   if(enabled){
     $('#p5Inspector').remove();
+    $('#aceJs').remove();
     var canvas = document.getElementById('defaultCanvas0');
     if (canvas) {
       console.log('replacing canvas');
@@ -20,12 +21,21 @@ var toggle = function(){
     }
   } 
   else {
+    //inject ace.js
+    var aceJs = document.createElement('script');
+    aceJs.id = "aceJs";
+    aceJs.type = "text/javascript";
+    aceJs.src = chrome.extension.getURL('ace.js');
+    var head = document.getElementsByTagName('head')[0];
+    head.insertBefore(aceJs, head.childNodes[0]);
+    console.log("injected aceJs");
+
+    //inject p5.inspector.js
     var s = document.createElement('script');
     s.id = "p5Inspector";
     s.type = "text/javascript";
     s.src = chrome.extension.getURL('p5.inspector.js');
-    var head = document.getElementsByTagName('head')[0];
-    head.insertBefore(s, head.childNodes[0]);
+    head.insertBefore(s, head.childNodes[1]);
     console.log("injected p5inspector");
   }
   enabled = !enabled;
