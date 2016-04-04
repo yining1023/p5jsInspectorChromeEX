@@ -1,3 +1,7 @@
+var p5 = require('p5');
+var $ = require('jquery');
+require('ace-webapp');
+
 var myShapes = [];
 
 /*
@@ -33,9 +37,9 @@ replaceCanvasAndStartP5();
 
 function wrapCode(){
   document.getElementById('defaultCanvas0').style.float = 'left';
-  var editor = ace.edit("codeBlock");
+  var editor = window.ace.edit("codeBlock");
   // editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/javascript");
+  // editor.getSession().setMode("ace/mode/javascript");
   document.getElementById('codeBlock').style.fontSize='20px';
 }
 
@@ -51,7 +55,7 @@ function modifyp5() {
   var p5rect = window.rect;
 
   window.triangle = function(x1, y1, x2, y2, x3, y3) {
-    console.log('drawing a p5 triangle',arguments); // arguments = [1,2,3]
+    console.log('drawing a p5 triangle',arguments);
 
     var coordinates = [x1, y1, x2, y2, x3, y3];
     myShapes.push({
@@ -62,7 +66,7 @@ function modifyp5() {
   }
 
   window.rect = function(x, y, w, h) {
-    console.log('drawing a p5 rectangle',arguments); // arguments = [1,2,3]
+    console.log('drawing a p5 rectangle',arguments);
 
     var coordinates = [x, y, w, h];
     myShapes.push({
@@ -96,9 +100,9 @@ function startP5() {
     for(var i = 0; i < myShapes.length; i++){
       //draw shapes according to myShapes[]
       s.addShape(new Shape(s, myShapes[i].coordinates[0],myShapes[i].coordinates[1],
-      myShapes[i].coordinates[2],myShapes[i].coordinates[3],'rgba(125,125,125,1)')); // The default is gray
+      myShapes[i].coordinates[2],myShapes[i].coordinates[3],'rgba(0,125,255,0.6)')); // The default color is blue now
 
-      var codeContent = myShapes[i].type + "(" + myShapes[i].coordinates + ");<\br>";
+      var codeContent = myShapes[i].type + "(" + myShapes[i].coordinates + ");";
       var code = document.createTextNode(codeContent);
       codeBlock.appendChild(code);
       codeBlock.appendChild(document.createElement('br'));

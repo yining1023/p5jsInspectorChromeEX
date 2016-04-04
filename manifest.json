@@ -14,9 +14,9 @@
     "run_at": "document_end"
     // "css": ["style.css"]
   }],
-  "web_accessible_resources": ["ace.js", "mode-javascript.js", "worker-javascript.js", "p5.inspector.js"],
+  "web_accessible_resources": ["bundle.js"],
   "browser_action":{
     "default_icon": "icon.png",
-    "default_titile": "p5.js Inspector"
+    "default_title": "p5.js Inspector"
   }
 }

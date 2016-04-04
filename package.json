@@ -1,0 +1,24 @@
+{
+  "name": "p5-inspector",
+  "version": "1.0.0",
+  "description": "Let people manipulate shapes on the canvas in real time using their p5 sketches.",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yining1023/p5jsInspoectorChromeEX.git"
+  },
+  "author": "Yining Shi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yining1023/p5jsInspoectorChromeEX/issues"
+  },
+  "homepage": "https://github.com/yining1023/p5jsInspoectorChromeEX#readme",
+  "dependencies": {
+    "ace-webapp": "^0.2.0",
+    "jquery": "^2.2.2",
+    "p5": "^0.4.23"
+  }
+}
